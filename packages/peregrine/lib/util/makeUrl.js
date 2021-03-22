@@ -15,11 +15,12 @@ AVAILABLE_STORE_VIEWS.forEach(store => {
 });
 
 let mediaBackend =
-    storage.getItem('store_view_secure_base_media_url') ||
-    storeSecureBaseMediaUrl[storeCode];
+  storage.getItem('store_view_secure_base_media_url')
+  || storeSecureBaseMediaUrl[storeCode]
+  || htmlDataset.mediaBackend;
 if (!mediaBackend) {
     console.warn('A media backend URL should be defined in your config.');
-    mediaBackend = 'https://backend.test/media/';
+    mediaBackend = process.env.MAGENTO_BACKEND_URL + 'media/';
 }
 
 const useBackendForImgs = imageOptimizingOrigin === 'backend';
